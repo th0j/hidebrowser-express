@@ -18,6 +18,14 @@ const profileSchema = mongoose.Schema(
       type: String,
       validator() {},
     },
+    isRunning: {
+      type: Boolean,
+      default: false,
+    },
+    disableWebGL: {
+      type: Boolean,
+      default: false,
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

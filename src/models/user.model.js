@@ -48,6 +48,10 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    profilePath: {
+      type: String,
+      default: 'profiles',
+    },
   },
   {
     timestamps: true,

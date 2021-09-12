@@ -2,15 +2,32 @@ const httpStatus = require('http-status');
 const { Profile } = require('../models');
 const ApiError = require('../utils/ApiError');
 
-const createProfile = async (profileBody) => {
-  if (await Profile.isTaken(profileBody.uuid)) {
+const createProfile = async (currentUser, profileBody) => {
+  if (await Profile.isTaken(currentUser, profileBody.uuid)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'UUID already taken');
   }
-  return Profile.create(profileBody);
+  return Profile.create({
+    name: profileBody.name,
+    uuid: profileBody.uuid,
+    proxy: profileBody.proxy,
+    disableWebGL: profileBody.disableWebGL,
+    owner: currentUser,
+  });
+};
+
+const updateProfile = async (currentUser, profileBody) => {
+  const profile = Profile.findOne({ owner: currentUser, uuid: profileBody.uuid });
+  return profile.updateOne({
+    name: profileBody.name,
+    uuid: profileBody.uuid,
+    proxy: profileBody.proxy,
+    disableWebGL: profileBody.disableWebGL,
+    owner: currentUser,
+  });
 };
 
 const getProfiles = async (owner) => {
-  const profiles = await Profile.find(owner);
+  const profiles = await Profile.find({ owner });
   return profiles;
 };
 
@@ -28,4 +45,4 @@ const deleteProfile = async (owner, uuid) => {
   return profile;
 };
 
-module.exports = { createProfile, getProfiles, deleteProfile };
+module.exports = { createProfile, getProfiles, deleteProfile, updateProfile };
