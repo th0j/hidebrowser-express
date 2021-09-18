@@ -7,7 +7,7 @@ const register = catchAsync(async (req, res) => {
   const tokens = await tokenService.generateAuthTokens(user);
   const plan = await planService.getPlan('Trial');
 
-  subscriptionService.createSubscription(user, plan);
+  await subscriptionService.createSubscription(user, plan);
 
   res.status(httpStatus.CREATED).send({ user, tokens });
 });
