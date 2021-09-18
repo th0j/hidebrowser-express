@@ -11,7 +11,7 @@ const createProfile = catchAsync(async (req, res) => {
 
 const updateProfile = catchAsync(async (req, res) => {
   const profile = await profileService.updateProfile(req.user, req.body);
-  res.status(httpStatus.CREATED).send(profile);
+  res.send(profile);
 });
 
 const getProfiles = catchAsync(async (req, res) => {
@@ -20,8 +20,8 @@ const getProfiles = catchAsync(async (req, res) => {
 });
 
 const deleteProfile = catchAsync(async (req, res) => {
-  const result = await profileService.deleteProfile(req.user, req.params.uuid);
-  res.status(httpStatus.OK).send(result);
+  await profileService.deleteProfile(req.user, req.params.uuid);
+  res.status(httpStatus.NO_CONTENT).send();
 });
 
 module.exports = {

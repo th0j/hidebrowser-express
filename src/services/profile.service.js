@@ -23,6 +23,7 @@ const updateProfile = async (currentUser, profileBody) => {
     proxy: profileBody.proxy,
     disableWebGL: profileBody.disableWebGL,
     owner: currentUser,
+    isRunning: profileBody.isRunning,
   });
 };
 
