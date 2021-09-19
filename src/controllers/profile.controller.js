@@ -14,6 +14,11 @@ const updateProfile = catchAsync(async (req, res) => {
   res.send(profile);
 });
 
+const updateProfileStatus = catchAsync(async (req, res) => {
+  const profile = await profileService.updateProfileStatus(req.user, req.params.uuid, req.body);
+  res.send(profile);
+});
+
 const getProfiles = catchAsync(async (req, res) => {
   const result = await profileService.getProfiles(req.user);
   res.status(httpStatus.OK).send(result);
@@ -29,4 +34,5 @@ module.exports = {
   getProfiles,
   updateProfile,
   deleteProfile,
+  updateProfileStatus,
 };

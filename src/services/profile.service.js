@@ -27,6 +27,11 @@ const updateProfile = async (currentUser, profileBody) => {
   });
 };
 
+const updateProfileStatus = async (currentUser, uuid, profileBody) => {
+  const profile = Profile.findOne({ owner: currentUser, uuid });
+  return profile.updateOne({ isRunning: profileBody.isRunning });
+};
+
 const getProfiles = async (owner) => {
   const profiles = await Profile.find({ owner });
   return profiles;
@@ -46,4 +51,4 @@ const deleteProfile = async (owner, uuid) => {
   return profile;
 };
 
-module.exports = { createProfile, getProfiles, deleteProfile, updateProfile };
+module.exports = { createProfile, getProfiles, deleteProfile, updateProfile, updateProfileStatus };
