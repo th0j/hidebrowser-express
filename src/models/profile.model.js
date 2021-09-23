@@ -26,6 +26,11 @@ const profileSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    lastAccess: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
