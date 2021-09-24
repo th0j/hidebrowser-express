@@ -29,7 +29,7 @@ const profileSchema = mongoose.Schema(
     lastAccess: {
       type: Date,
       required: true,
-      default: Date.now,
+      default: Date.now(),
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
