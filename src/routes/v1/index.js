@@ -4,6 +4,7 @@ const userRoute = require('./user.route');
 const docsRoute = require('./docs.route');
 const profileRoute = require('./profile.route');
 const accountRoute = require('./account.route');
+const subscriptionRoute = require('./subscription.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -23,8 +24,12 @@ const defaultRoutes = [
   },
 
   {
-    path: '/account',
+    path: '/accounts',
     route: accountRoute,
+  },
+  {
+    path: '/subscriptions',
+    route: subscriptionRoute,
   },
 ];
 

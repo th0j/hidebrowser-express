@@ -9,6 +9,7 @@ const subscriptionSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
   startDate: {
     type: Date,
