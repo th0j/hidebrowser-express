@@ -23,14 +23,14 @@ const updateProfile = async (currentUser, profileBody) => {
     proxy: profileBody.proxy,
     disableWebGL: profileBody.disableWebGL,
     owner: currentUser,
-    lastAccess: Date.now,
+    lastAccess: Date.now(),
     isRunning: profileBody.isRunning,
   });
 };
 
 const updateProfileStatus = async (currentUser, uuid, profileBody) => {
   const profile = Profile.findOne({ owner: currentUser, uuid });
-  return profile.updateOne({ isRunning: profileBody.isRunning });
+  return profile.updateOne({ isRunning: profileBody.isRunning, lastAccess: Date.now() });
 };
 
 const getProfiles = async (owner) => {
