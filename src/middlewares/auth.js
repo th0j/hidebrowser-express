@@ -14,7 +14,7 @@ const verifyCallback = (req, resolve, reject, requiredRights) => async (err, use
 
   if (!requiredRights.length) {
     if (Date.now() > subscription.endDate) {
-      return reject(new ApiError(httpStatus.UNAUTHORIZED, 'Your subscription has expired, please upgrade to contine.'));
+      return reject(new ApiError(httpStatus.BAD_REQUEST, 'Your subscription has expired, please upgrade to contine.'));
     }
   }
 

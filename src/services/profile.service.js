@@ -2,10 +2,20 @@ const httpStatus = require('http-status');
 const { Profile } = require('../models');
 const ApiError = require('../utils/ApiError');
 
+const { Subscription } = require('../models');
+
 const createProfile = async (currentUser, profileBody) => {
   if (await Profile.isTaken(currentUser, profileBody.uuid)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'UUID already taken');
   }
+  const currentSubscription = await Subscription.findOne({ user: currentUser, active: true });
+
+  const numberProfileCreated = await Profile.countDocuments({ owner: currentUser });
+
+  if (numberProfileCreated > currentSubscription.profileLimit) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'You have used up the number of profiles. Please upgrade your account.');
+  }
+
   return Profile.create({
     name: profileBody.name,
     uuid: profileBody.uuid,
