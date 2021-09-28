@@ -35,5 +35,5 @@ const planSchema = mongoose.Schema(
 planSchema.plugin(toJSON);
 planSchema.plugin(paginate);
 
-const Profile = mongoose.model('Plan', planSchema);
-module.exports = Profile;
+const Plan = mongoose.model('Plan', planSchema);
+module.exports = Plan;

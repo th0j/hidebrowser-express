@@ -18,6 +18,11 @@ const profileSchema = mongoose.Schema(
       type: String,
       validator() {},
     },
+    proxyType: {
+      type: String,
+      enum: ['http', 'socks4', 'socks5'],
+      default: '',
+    },
     isRunning: {
       type: Boolean,
       default: false,

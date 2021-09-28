@@ -39,5 +39,5 @@ const subscriptionSchema = mongoose.Schema({
 subscriptionSchema.plugin(toJSON);
 subscriptionSchema.plugin(paginate);
 
-const Profile = mongoose.model('Subscription', subscriptionSchema);
-module.exports = Profile;
+const Subscription = mongoose.model('Subscription', subscriptionSchema);
+module.exports = Subscription;

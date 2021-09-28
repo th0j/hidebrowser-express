@@ -20,6 +20,7 @@ const createProfile = async (currentUser, profileBody) => {
     name: profileBody.name,
     uuid: profileBody.uuid,
     proxy: profileBody.proxy,
+    proxyType: profileBody.proxyType,
     disableWebGL: profileBody.disableWebGL,
     owner: currentUser,
   });
@@ -31,6 +32,7 @@ const updateProfile = async (currentUser, profileBody) => {
     name: profileBody.name,
     uuid: profileBody.uuid,
     proxy: profileBody.proxy,
+    proxyType: profileBody.proxyType,
     disableWebGL: profileBody.disableWebGL,
     owner: currentUser,
     lastAccess: Date.now(),
