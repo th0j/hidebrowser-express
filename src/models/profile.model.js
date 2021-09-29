@@ -20,7 +20,7 @@ const profileSchema = mongoose.Schema(
     },
     proxyType: {
       type: String,
-      enum: ['http', 'socks4', 'socks5'],
+      enum: ['', 'http', 'socks4', 'socks5'],
       default: '',
     },
     isRunning: {
