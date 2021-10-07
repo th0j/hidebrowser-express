@@ -5,3 +5,4 @@ module.exports.userService = require('./user.service');
 module.exports.profileService = require('./profile.service');
 module.exports.subscriptionService = require('./subscription.service');
 module.exports.planService = require('./plan.service');
+module.exports.groupService = require('./group.service');

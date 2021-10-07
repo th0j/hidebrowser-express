@@ -36,6 +36,13 @@ const profileSchema = mongoose.Schema(
       required: true,
       default: Date.now(),
     },
+    note: {
+      type: String,
+    },
+    group: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Group',
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

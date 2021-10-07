@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Profile } = require('../models');
+const { Profile, Group } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 const { Subscription } = require('../models');
@@ -16,28 +16,44 @@ const createProfile = async (currentUser, profileBody) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'You have used up the number of profiles. Please upgrade your account.');
   }
 
-  return Profile.create({
+  const opts = {
     name: profileBody.name,
     uuid: profileBody.uuid,
     proxy: profileBody.proxy,
     proxyType: profileBody.proxyType,
+    note: profileBody.note,
     disableWebGL: profileBody.disableWebGL,
     owner: currentUser,
-  });
+  };
+
+  if (profileBody.groupId) {
+    const group = await Group.findOne({ _id: profileBody.groupId, owner: currentUser });
+    opts.group = group;
+  }
+
+  return Profile.create(opts);
 };
 
 const updateProfile = async (currentUser, profileBody) => {
   const profile = Profile.findOne({ owner: currentUser, uuid: profileBody.uuid });
-  return profile.updateOne({
+
+  const opts = {
     name: profileBody.name,
     uuid: profileBody.uuid,
     proxy: profileBody.proxy,
     proxyType: profileBody.proxyType,
+    note: profileBody.note,
     disableWebGL: profileBody.disableWebGL,
     owner: currentUser,
     lastAccess: Date.now(),
-    isRunning: profileBody.isRunning,
-  });
+  };
+
+  if (profileBody.groupId) {
+    const group = await Group.findOne({ _id: profileBody.groupId, owner: currentUser });
+    opts.group = group;
+  }
+
+  return profile.updateOne(opts);
 };
 
 const updateProfileStatus = async (currentUser, uuid, profileBody) => {
@@ -46,7 +62,7 @@ const updateProfileStatus = async (currentUser, uuid, profileBody) => {
 };
 
 const getProfiles = async (owner) => {
-  const profiles = await Profile.find({ owner });
+  const profiles = await Profile.find({ owner }).select(['-owner']);
   return profiles;
 };
 

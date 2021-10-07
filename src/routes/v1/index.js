@@ -5,6 +5,7 @@ const docsRoute = require('./docs.route');
 const profileRoute = require('./profile.route');
 const accountRoute = require('./account.route');
 const subscriptionRoute = require('./subscription.route');
+const groupRoute = require('./group.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -30,6 +31,10 @@ const defaultRoutes = [
   {
     path: '/subscriptions',
     route: subscriptionRoute,
+  },
+  {
+    path: '/groups',
+    route: groupRoute,
   },
 ];
 
